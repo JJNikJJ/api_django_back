@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # или любая другая ветка, на которую вы хотите настроить триггер
+      - main
 
 jobs:
   build:
