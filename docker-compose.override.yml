@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    environment:
+      - DJANGO_SETTINGS_MODULE=bikeapi.settings.local_settings
+  celery:
+    environment:
+      - DJANGO_SETTINGS_MODULE=bikeapi.settings.local_settings
+  celery-beat:
+    environment:
+      - DJANGO_SETTINGS_MODULE=bikeapi.settings.local_settings

@@ -9,9 +9,13 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
   redis:
     image: redis:6
+    ports:
+      - "6379:6379"
 
   web:
     build: .
@@ -31,8 +35,6 @@ services:
       - POSTGRES_PASSWORD=password
       - DB_HOST=db
       - DB_PORT=5432
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
 
   celery:
     build: .
