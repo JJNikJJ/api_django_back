@@ -44,6 +44,10 @@ jobs:
           source .venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Set up environment variables
+        run: |
+          echo "DATABASE_URL=postgres://user:password@db:5432/bikeapi" >> $GITHUB_ENV
+
       - name: Run tests
         run: |
           source .venv/bin/activate
