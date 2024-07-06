@@ -44,6 +44,13 @@ jobs:
           source .venv/bin/activate
           pip install -r requirements.txt
 
+      - name: Wait for DB
+        run: |
+          while ! pg_isready -h localhost -p 5432 -U user; do
+            echo "Waiting for database to be ready..."
+            sleep 1
+          done
+
       - name: Run tests
         env:
           POSTGRES_DB: bikeapi
