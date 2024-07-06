@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main
+      - main  # или любая другая ветка, на которую вы хотите настроить триггер
 
 jobs:
   build:
@@ -43,10 +43,6 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install -r requirements.txt
-
-      - name: Set up environment variables
-        run: |
-          echo "DATABASE_URL=postgres://user:password@db:5432/bikeapi" >> $GITHUB_ENV
 
       - name: Run tests
         run: |
