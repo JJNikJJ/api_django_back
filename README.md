@@ -64,7 +64,107 @@ API документация автоматически генерируется
 
 ### 1. Регистрация пользователя
 
+**Запрос по адресу http://94.26.250.140:8000/:**
+
+```bash
+curl -X POST http://94.26.250.140:8000/api/users/ -d '{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "testpassword123"
+}'
+```
+
+**Ответ:**
+
+```json
+{
+  "id": 1,
+  "username": "testuser",
+  "email": "testuser@example.com"
+}
+```
+
+### 2. Получение токена
+
 **Запрос:**
+
+```bash
+curl -X POST http://94.26.250.140:8000/api/token/ -d '{
+  "username": "testuser",
+  "password": "testpassword123"
+}'
+```
+
+**Ответ:**
+
+```json
+{
+  "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}
+```
+
+### 3. Список велосипедов
+
+**Запрос:**
+
+```bash
+curl -X GET http://94.26.250.140:8000/api/bikes/ -H "Authorization: Bearer <your_access_token>"
+```
+
+**Ответ:**
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Bike 1",
+    "description": "Description 1",
+    "is_available": true
+  },
+  {
+    "id": 2,
+    "name": "Bike 2",
+    "description": "Description 2",
+    "is_available": true
+  }
+]
+```
+
+### 4. Аренда велосипеда
+
+**Запрос:**
+
+```bash
+curl -X POST http://94.26.250.140:8000/api/rentals/1/rent/ -H "Authorization: Bearer <your_access_token>"
+```
+
+**Ответ:**
+
+```json
+{
+  "status": "Bike rented",
+  "rental_id": 1
+}
+```
+
+### 5. Возврат велосипеда
+
+**Запрос:**
+
+```bash
+curl -X POST http://94.26.250.140:8000/api/rentals/1/return_bike/ -H "Authorization: Bearer <your_access_token>"
+```
+
+**Ответ:**
+
+```json
+{
+  "status": "Bike returned"
+}
+```
+
+**Запрос localhost**
 
 ```bash
 curl -X POST http://localhost:8000/api/users/ -d '{
