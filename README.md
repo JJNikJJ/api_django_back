@@ -1,70 +1,102 @@
-# Bike Rental API
+# Bike API Django Project
 
-## Описание
+## Описание проекта
 
-Проект представляет собой API для аренды велосипедов, построенный с использованием Django и Django REST Framework. В проект включена поддержка задач Celery и Redis для асинхронной обработки задач.
+Это проект Bike API, разработанный на Django, который предоставляет REST API для управления арендами велосипедов. Проект использует Docker для контейнеризации всех сервисов и GitHub Actions для CI/CD.
+
+## Содержание
+
+- [Bike API Django Project](#bike-api-django-project)
+  - [Описание проекта](#описание-проекта)
+  - [Требования](#требования)
+  - [Установка](#установка)
+  - [Запуск проекта](#запуск-проекта)
+  - [API Документация](#api-документация)
+  - [CI/CD](#cicd)
+  - [Примеры запросов для тестирования API](#примеры-запросов-для-тестирования-api)
 
 ## Требования
 
+- Docker
+- Docker Compose
+- Git
 - Python 3.12
-- Backend: Django, Django Rest Framework
-- Асинхронность: Celery
-- База данных: PostgreSQL
-- Тестирование: PyTest
-- Контейнеризация: Docker
-- CI/CD: GitLab CI
-- 
+
 ## Установка
 
-### 1. Клонирование репозитория
+1. Клонируйте репозиторий:
+   ```sh
+   git clone https://github.com/JJNikJJ/api_django_back.git
+   cd api_django_back
+   ```
 
-```bash
-git clone https://github.com/JJNikJJ/bike_api_django.git
-cd bike_api_django
-```
+2. Создайте виртуальное окружение и установите зависимости:
+   ```sh
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
 
-### 2. Настройка виртуального окружения и установка зависимостей
+## Запуск проекта
 
-```bash
-python -m venv .venv
-source .venv\Scripts\activate
-pip install -r requirements.txt
-```
+1. Запустите все сервисы с помощью Docker Compose:
+   ```sh
+   docker-compose up --build
+   ```
 
-### 3. Настройка Docker и Docker Compose
+2. Выполните миграции и создайте суперпользователя:
+   ```sh
+   docker-compose exec web python manage.py migrate
+   docker-compose exec web python manage.py createsuperuser
+   ```
 
-Убедитесь, что у вас установлены Docker и Docker Compose. Затем выполните команду для сборки и запуска контейнеров:
+3. Откройте браузер и перейдите по адресу [http://localhost:8000](http://localhost:8000).
 
-```bash
-docker-compose up --build
-```
+## API Документация
 
-### 4. Применение миграций и создание суперпользователя
-
-Примените миграции и создайте суперпользователя для доступа к административной панели Django:
-
-```bash
-docker-compose exec web python manage.py migrate
-docker-compose exec web python manage.py createsuperuser
-```
-
-### 5. Запуск проекта
-
-Для запуска проекта используйте команду:
-
-```bash
-docker-compose up
-```
-
-Теперь проект должен быть доступен по адресу [http://localhost:8000](http://localhost:8000).
+API документация автоматически генерируется с использованием Swagger и доступна по адресу [http://94.26.250.140:8000/swagger/](http://94.26.250.140:8000/swagger/).
 
 ## CI/CD
 
 В проекте настроен CI/CD с использованием GitHub Actions. Скрипты для автоматического тестирования и деплоя находятся в `.github/workflows/`.
 
-## Документация по API
+### Настройка GitHub Actions
 
-Документация по API доступна по адресу [http://localhost:8000/swagger/](http://localhost:8000/swagger/).
+1. Перейдите в настройки репозитория на GitHub.
+2. Добавьте следующие секреты в разделе "Secrets and variables":
+   - `DOCKER_USERNAME`: ваше имя пользователя Docker Hub.
+   - `DOCKER_PASSWORD`: ваш пароль Docker Hub.
+   - `SSH_PRIVATE_KEY`: ваш приватный SSH ключ для подключения к серверу.
+   - `SSH_USERNAME`: имя пользователя для SSH на сервере деплоя.
+   - `SSH_HOST`: IP-адрес или доменное имя вашего сервера.
+
+## Инструкции по развертыванию и локальному запуску проекта
+
+1. Клонируйте репозиторий:
+   ```sh
+   git clone https://github.com/JJNikJJ/api_django_back.git
+   cd api_django_back
+   ```
+
+2. Создайте виртуальное окружение и установите зависимости:
+   ```sh
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+3. Запустите все сервисы с помощью Docker Compose:
+   ```sh
+   docker-compose up --build
+   ```
+
+4. Выполните миграции и создайте суперпользователя:
+   ```sh
+   docker-compose exec web python manage.py migrate
+   docker-compose exec web python manage.py createsuperuser
+   ```
+
+5. Откройте браузер и перейдите по адресу [http://localhost:8000](http://localhost:8000).
 
 ## Примеры запросов для тестирования API
 
