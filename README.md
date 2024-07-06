@@ -60,44 +60,6 @@ API документация автоматически генерируется
 
 В проекте настроен CI/CD с использованием GitHub Actions. Скрипты для автоматического тестирования и деплоя находятся в `.github/workflows/`.
 
-### Настройка GitHub Actions
-
-1. Перейдите в настройки репозитория на GitHub.
-2. Добавьте следующие секреты в разделе "Secrets and variables":
-   - `DOCKER_USERNAME`: ваше имя пользователя Docker Hub.
-   - `DOCKER_PASSWORD`: ваш пароль Docker Hub.
-   - `SSH_PRIVATE_KEY`: ваш приватный SSH ключ для подключения к серверу.
-   - `SSH_USERNAME`: имя пользователя для SSH на сервере деплоя.
-   - `SSH_HOST`: IP-адрес или доменное имя вашего сервера.
-
-## Инструкции по развертыванию и локальному запуску проекта
-
-1. Клонируйте репозиторий:
-   ```sh
-   git clone https://github.com/JJNikJJ/api_django_back.git
-   cd api_django_back
-   ```
-
-2. Создайте виртуальное окружение и установите зависимости:
-   ```sh
-   python -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   ```
-
-3. Запустите все сервисы с помощью Docker Compose:
-   ```sh
-   docker-compose up --build
-   ```
-
-4. Выполните миграции и создайте суперпользователя:
-   ```sh
-   docker-compose exec web python manage.py migrate
-   docker-compose exec web python manage.py createsuperuser
-   ```
-
-5. Откройте браузер и перейдите по адресу [http://localhost:8000](http://localhost:8000).
-
 ## Примеры запросов для тестирования API
 
 ### 1. Регистрация пользователя
