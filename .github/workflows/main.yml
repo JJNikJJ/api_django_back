@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # или любая другая ветка, на которую вы хотите настроить триггер
+      - main
 
 jobs:
   build:
@@ -64,11 +64,16 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST << 'EOF'
-            cd /path/to/your/app
-            git pull origin main
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST << 'EOF'
+            if [ ! -d "/home/your_username/bikeapi" ]; then
+              git clone https://github.com/your_username/your_repository.git /home/your_username/bikeapi
+            else
+              cd /home/your_username/bikeapi
+              git pull origin main
+            fi
+            cd /home/your_username/bikeapi
             docker-compose down
             docker-compose up --build -d
           EOF
