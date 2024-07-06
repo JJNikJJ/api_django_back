@@ -67,13 +67,13 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST << 'EOF'
-            if [ ! -d "/home/your_username/bikeapi" ]; then
-              git clone https://github.com/your_username/your_repository.git /home/your_username/bikeapi
+            if [ ! -d "/home/JJNIKJJ/bikeapi" ]; then
+              git clone https://github.com/JJNikJJ/api_django_back /home/JJNIKJJ/bikeapi
             else
-              cd /home/your_username/bikeapi
+              cd /home/JJNIKJJ/bikeapi
               git pull origin main
             fi
-            cd /home/your_username/bikeapi
+            cd /home/JJNIKJJ/bikeapi
             docker-compose down
             docker-compose up --build -d
           EOF
